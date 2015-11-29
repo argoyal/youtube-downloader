@@ -13,12 +13,12 @@ class YoutubeDownloader(object):
         ydl.add_default_info_extractors()
         self.result = ydl.extract_info('%s'%self.youtube_link, download=False)
 
-    def get_youtube_link_and_process(self):        
+    def get_youtube_link_and_process(self):
         if 'entries' in self.result:
             video = self.result['entries'][0]
         else:
             video = self.result
-        video_name = str(video['title'])
+        video_name = str(video['title'].encode('ascii', 'ignore'))
         formats = self.result['formats']
         self.video_name = video_name
         return video_name, formats
